@@ -1,12 +1,12 @@
-const createAutoComplete = ({ root, renderOption }) => {
+const createAutoComplete = ({ root, renderOption, onOptionSelect, inputValue }) => {
   root.innerHTML = `
-  <labe><b>Search for a movide</b></label>
-  <input class="input" />
-  <div class="dropdown">
-    <div class="dropdown-menu">
-      <div class="dropdown-content results"></div>
+    <labe><b>Search for a movide</b></label>
+    <input class="input" />
+    <div class="dropdown">
+      <div class="dropdown-menu">
+        <div class="dropdown-content results"></div>
+      </div>
     </div>
-  </div>
  `
   const input = root.querySelector('input');
   const dropdown = root.querySelector('.dropdown');
@@ -27,8 +27,8 @@ const createAutoComplete = ({ root, renderOption }) => {
       option.innerHTML = renderOption(movie);
       option.addEventListener('click', e => {
         dropdown.classList.remove('is-active');
-        input.value = movie.Title;
-        onMovieSelect(movie)
+        input.value = inputValue(movie)
+        onOptionSelect(movie)
       })
       resultsWrapper.appendChild(option);
     }
